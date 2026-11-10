@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080c18">
+  <title>SÀN CHỨNG KHOÁN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
+  <main id="auth-screen" class="auth-wrap">
+    <section class="auth-intro">
+      <div class="brand-mark"><span class="brand-symbol">↗</span><span>SÀN <b>CHỨNG KHOÁN</b></span></div>
+      <div class="eyebrow">PAPER MARKET · WEB EDITION 2.1</div>
+      <h1>Một thị trường.<br><span>Nhiều chiến lược.</span></h1>
+      <div class="auth-highlights">
+        <div><b>10</b><span>MÃ TÀI SẢN</span></div>
+        <div><b>24/7</b><span>THỊ TRƯỜNG</span></div>
+        <div><b>USD</b><span>ĐƠN VỊ GIAO DỊCH</span></div>
+      </div>
+    </section>
+    <section class="auth-card panel">
+      <div class="auth-card-head">
+        <div class="eyebrow">WELCOME TO THE EXCHANGE</div>
+        <h2 id="auth-title">Tạo tài khoản mới</h2>
+      </div>
+      <div class="auth-tabs">
+        <button class="tab active" data-auth-tab="register">Đăng ký</button>
+        <button class="tab" data-auth-tab="login">Đăng nhập</button>
+      </div>
+      <form id="register-form" class="auth-form">
+        <label>Tên hiển thị<input name="display_name" maxlength="50"></label>
+        <label>Tên đăng nhập<input name="username" required minlength="3" maxlength="32" autocomplete="username"></label>
+        <label>Mật khẩu<input name="password" required minlength="8" maxlength="256" type="password" autocomplete="new-password"></label>
+        <button class="btn btn-primary wide" type="submit">ĐĂNG KÝ & VÀO SÀN <span>↗</span></button>
+      </form>
+      <form id="login-form" class="auth-form hidden">
+        <label>Tên đăng nhập<input name="username" required autocomplete="username"></label>
+        <label>Mật khẩu<input name="password" required type="password" autocomplete="current-password"></label>
+        <button class="btn btn-primary wide" type="submit">ĐĂNG NHẬP <span>↗</span></button>
+      </form>
+      <div id="auth-error" class="form-error" role="alert"></div>
+    </section>
+  </main>
+
+  <div id="app-screen" class="app-shell hidden">
+    <aside class="sidebar">
+      <div class="brand-mark side-brand"><span class="brand-symbol">↗</span><span>SÀN <b>CHỨNG KHOÁN</b></span></div>
+      <div class="side-caption">WORKSPACE</div>
+      <nav class="side-nav">
+        <button class="nav-item active" data-view="market"><span>◫</span> Thị trường</button>
+        <button class="nav-item" data-view="portfolio"><span>▤</span> Danh mục</button>
+        <button class="nav-item" data-view="membership"><span>✧</span> Thành viên</button>
+        <button class="nav-item" data-view="community"><span>◌</span> Cộng đồng</button>
+        <button class="nav-item" data-view="profile"><span>◎</span> Hồ sơ & ví</button>
+        <button class="nav-item staff-only hidden" data-view="admin"><span>⌘</span> Quản trị</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="mini-status"><span class="live-dot"></span><div><b>MARKET ONLINE</b><small>Shared simulation engine</small></div></div>
+        <button id="logout-btn" class="nav-item logout"><span>↪</span> Đăng xuất</button>
+        <div class="side-version">WEB V2.1 · NEON POSTGRES</div>
+      </div>
+    </aside>
+
+    <div class="main-area">
+      <header class="topbar">
+        <div><div class="eyebrow">SIMULATED FINANCIAL WORLD</div><div class="topbar-title" id="page-title">Tổng quan thị trường</div></div>
+        <div class="top-actions">
+          <div class="market-clock"><span class="live-dot"></span><span id="clock">--:--:--</span><small>LOCAL</small></div>
+          <button class="icon-button" id="inbox-open" title="Hòm thư">✉<i id="inbox-count" class="count-dot hidden">0</i></button>
+          <div class="user-chip"><div class="avatar" id="user-avatar">U</div><div><b id="user-name">—</b><small id="user-role">THÀNH VIÊN</small></div></div>
+        </div>
+      </header>
+
+      <main class="content">
+        <section id="view-market" class="view active">
+          <div class="welcome-row">
+            <div><div class="eyebrow">MARKET OVERVIEW</div><h1>Thị trường <span>hôm nay</span></h1><p id="market-status">Đang tải trạng thái thị trường…</p></div>
+            <div class="market-pill"><span class="pulse"></span> GIÁ MÔ PHỎNG ĐANG CẬP NHẬT</div>
+          </div>
+          <div class="stats-grid">
+            <article class="stat-card panel"><div class="stat-label">SỐ DƯ KHẢ DỤNG <span>USD</span></div><div id="stat-balance" class="stat-value">$0.00</div><div class="stat-foot">Ví tiền mô phỏng</div></article>
+            <article class="stat-card panel"><div class="stat-label">GIÁ TRỊ TÀI SẢN</div><div id="stat-assets" class="stat-value">$0.00</div><div class="stat-foot">Theo giá thị trường hiện tại</div></article>
+            <article class="stat-card panel"><div class="stat-label">TỔNG TÀI SẢN RÒNG</div><div id="stat-networth" class="stat-value">$0.00</div><div class="stat-foot">USD + danh mục đang giữ</div></article>
+            <article class="stat-card panel stat-membership"><div class="stat-label">CẤP THÀNH VIÊN</div><div id="stat-tier" class="stat-value tier-value">THÀNH VIÊN THƯỜNG</div><div id="stat-tier-foot" class="stat-foot">Khám phá quyền lợi thành viên</div></article>
+          </div>
+          <div class="market-layout">
+            <section class="panel assets-panel">
+              <div class="panel-heading"><div><div class="eyebrow">WATCHLIST</div><h3>Tài sản</h3></div><select id="category-filter" class="select-small"><option value="all">Tất cả</option><option>Kim loại quý</option><option>Năng lượng</option><option>Crypto Real</option></select></div>
+              <div id="asset-list" class="asset-list"><div class="loading">Đang tải bảng giá…</div></div>
+            </section>
+            <section class="panel chart-panel">
+              <div class="chart-head"><div><div class="eyebrow" id="chart-category">ASSET CHART</div><h3 id="chart-name">Bitcoin Ảo <span id="chart-symbol">BTC/USD</span></h3><div class="chart-price-line"><strong id="chart-price">$65,000.00</strong><span id="chart-change" class="change up">+0.00%</span></div></div><div class="chart-tools"><span class="live-tag"><i></i> LIVE</span><button class="icon-button" id="forecast-btn" title="Phân tích MA">⌁</button></div></div>
+              <div class="ma-legend"><span><i class="ma5"></i> MA5</span><span><i class="ma10"></i> MA10</span><span><i class="ma20"></i> MA20</span><span><i class="ma50"></i> MA50</span><span><i class="ma200"></i> MA200</span></div>
+              <div class="chart-canvas-wrap"><canvas id="price-chart" width="900" height="360" aria-label="Biểu đồ giá mô phỏng"></canvas></div>
+              <div class="chart-foot"><span>HISTORICAL SAMPLES · UP TO 200 POINTS</span><span id="chart-updated">Đang cập nhật</span></div>
+            </section>
+            <section class="panel trade-panel">
+              <div class="panel-heading"><div><div class="eyebrow">QUICK TRADE</div><h3>Giao dịch</h3></div><span class="paper-tag">PAPER</span></div>
+              <div class="trade-mode"><button class="trade-mode-btn active buy" data-mode="buy">MUA</button><button class="trade-mode-btn sell" data-mode="sell">BÁN</button></div>
+              <div class="trade-asset-line"><span id="trade-symbol">BTC</span><b id="trade-current-price">$65,000.00</b></div>
+              <label class="field-label" for="trade-amount">Số tiền (USD)</label>
+              <div class="amount-input"><span>$</span><input id="trade-amount" type="text" inputmode="decimal" value="1000" autocomplete="off"></div>
+              <div class="quick-values"><button data-amount="100">100</button><button data-amount="500">500</button><button data-amount="1000">1K</button><button data-amount="5000">5K</button></div>
+              <div class="slider-label"><span>TỶ LỆ KHẢ DỤNG</span><b id="trade-percent-label">10%</b></div>
+              <input id="trade-percent" type="range" min="1" max="100" value="10">
+              <div class="trade-estimate"><div><span>ƯỚC TÍNH KHỐI LƯỢNG</span><b id="trade-qty">0.000000</b></div><div><span>SỐ DƯ SAU LỆNH</span><b id="trade-after">$0.00</b></div></div>
+              <button id="trade-submit" class="btn btn-primary wide">XÁC NHẬN MUA</button>
+              <p class="trade-note">Không thu phí giao dịch. Giá khớp theo giá mô phỏng tại thời điểm xác nhận.</p>
+              <div id="trade-message" class="inline-message"></div>
+            </section>
+          </div>
+          <div class="bottom-grid">
+            <section class="panel table-panel"><div class="panel-heading"><div><div class="eyebrow">MARKET MOVERS</div><h3>Biến động tài sản</h3></div><button class="text-button" data-view-link="portfolio">Xem danh mục ↗</button></div><div id="market-table" class="market-table"></div></section>
+            <section class="panel note-panel"><div class="eyebrow">SYSTEM NOTE</div><h3>Đây là sân chơi mô phỏng</h3><div class="note-foot"><span class="live-dot"></span> MARKET STATE ĐƯỢC LƯU TRÊN DATABASE</div></section>
+          </div>
+        </section>
+
+        <section id="view-portfolio" class="view">
+          <div class="view-heading"><div><div class="eyebrow">YOUR HOLDINGS</div><h1>Danh mục <span>tài sản</span></h1></div><button id="portfolio-refresh" class="btn btn-quiet">↻ Làm mới</button></div>
+          <div class="stats-grid compact-stats"><article class="stat-card panel"><div class="stat-label">SỐ DƯ USD</div><div id="pf-balance" class="stat-value">$0.00</div></article><article class="stat-card panel"><div class="stat-label">GIÁ TRỊ DANH MỤC</div><div id="pf-assets" class="stat-value">$0.00</div></article><article class="stat-card panel"><div class="stat-label">TỔNG TÀI SẢN RÒNG</div><div id="pf-net" class="stat-value">$0.00</div></article></div>
+          <section class="panel table-panel"><div class="panel-heading"><div><div class="eyebrow">ASSET POSITIONS</div><h3>Tài sản đang nắm giữ</h3></div></div><div id="holdings-table" class="data-table"></div></section>
+          <section class="panel table-panel gap-top"><div class="panel-heading"><div><div class="eyebrow">RECENT ACTIVITY</div><h3>Lịch sử giao dịch</h3></div></div><div id="trades-table" class="data-table"></div></section>
+        </section>
+
+        <section id="view-membership" class="view">
+          <div class="view-heading"><div><div class="eyebrow">MEMBERSHIP PROGRAM</div><h1>Thành viên <span>Premium</span></h1></div><button id="claim-bonus" class="btn btn-primary">✧ Nhận thưởng hôm nay</button></div>
+          <div class="current-membership panel"><div><div class="eyebrow">CURRENT STATUS</div><h2 id="membership-current">THÀNH VIÊN THƯỜNG</h2><p id="membership-expiry">Chưa có gói Premium đang hoạt động.</p></div><div class="current-membership-right"><span class="paper-tag">USD</span><b id="membership-daily">—</b><small>THƯỞNG / NGÀY</small></div></div>
+          <div id="membership-grid" class="membership-grid"></div>
+          <section class="panel gift-panel"><div class="panel-heading"><div><div class="eyebrow">SEND A GIFT</div><h3>Tặng gói thành viên</h3></div><span class="gift-badge">+15% phí tặng</span></div><div class="form-grid"><label class="field-label">ID người nhận (8 số)<input id="gift-id" class="text-input" maxlength="8"></label><label class="field-label">Tên hiển thị người nhận<input id="gift-name" class="text-input" maxlength="50"></label><label class="field-label">Gói<select id="gift-tier" class="text-input"><option value="bronze">Đồng</option><option value="silver">Bạc</option><option value="gold">Vàng</option><option value="platinum">Bạch Kim</option><option value="diamond">Kim Cương</option></select></label><label class="field-label">Thời hạn<select id="gift-plan" class="text-input"><option value="three_day">3 ngày</option><option value="month">1 tháng</option><option value="year">1 năm</option></select></label></div><button id="gift-submit" class="btn btn-quiet">XÁC NHẬN TẶNG</button><div id="gift-message" class="inline-message"></div><div id="special-gifts" class="special-gifts"></div></section>
+        </section>
+
+        <section id="view-community" class="view">
+          <div class="view-heading"><div><div class="eyebrow">COMMUNITY HUB</div><h1>Phòng <span>trò chuyện</span></h1></div></div>
+          <section class="panel chat-panel"><div class="chat-tabs"><button class="chat-tab active" data-room="total">CHAT TỔNG</button><button class="chat-tab" data-room="members">CHAT THÀNH VIÊN</button><button class="chat-tab staff-only hidden" data-room="qtv">CHAT QTV</button></div><div class="chat-room-heading"><div><b id="chat-room-title">CHAT TỔNG</b><small id="chat-room-desc">Mọi tài khoản đã đăng nhập</small></div><span class="live-tag"><i></i> COMMUNITY</span></div><div id="chat-messages" class="chat-messages"></div><form id="chat-form" class="chat-compose"><input id="chat-input" maxlength="500" autocomplete="off"><button class="btn btn-primary" type="submit">GỬI ↗</button></form><div id="chat-message" class="inline-message"></div></section>
+          <section class="panel report-panel"><div class="panel-heading"><div><div class="eyebrow">SAFETY & SUPPORT</div><h3>Gửi tố cáo / phản ánh</h3></div></div><div class="form-grid"><label class="field-label">ID tài khoản<input id="report-id" class="text-input" maxlength="8"></label><label class="field-label">Tên hiển thị<input id="report-name" class="text-input"></label><label class="field-label span-two">Nội dung<textarea id="report-reason" class="text-input" rows="3" maxlength="500"></textarea></label></div><button id="report-submit" class="btn btn-quiet">GỬI PHẢN ÁNH</button><div id="report-message" class="inline-message"></div></section>
+        </section>
+
+        <section id="view-profile" class="view">
+          <div class="view-heading"><div><div class="eyebrow">ACCOUNT CENTER</div><h1>Hồ sơ <span>& ví</span></h1></div></div>
+          <div class="profile-grid"><section class="panel profile-card"><div class="eyebrow">PROFILE DETAILS</div><div class="profile-avatar" id="profile-avatar">U</div><h2 id="profile-name-title">—</h2><div id="profile-role-pill" class="role-pill">THÀNH VIÊN</div><div class="profile-meta"><span>ID TÀI KHOẢN</span><b id="profile-id">--------</b></div><div class="profile-meta"><span>TÊN ĐĂNG NHẬP</span><b id="profile-username">—</b></div><div class="profile-meta"><span>THAM GIA</span><b id="profile-created">—</b></div></section><section class="panel profile-edit"><div class="eyebrow">EDIT DISPLAY PROFILE</div><h3>Thông tin hiển thị</h3><label class="field-label">Tên hiển thị<input id="profile-display" class="text-input" maxlength="50"></label><label class="field-label">Giới thiệu<textarea id="profile-bio" class="text-input" maxlength="160" rows="3"></textarea></label><button id="profile-save" class="btn btn-primary">LƯU HỒ SƠ</button><button id="request-admin-btn" class="btn btn-quiet">GỬI YÊU CẦU ADMIN</button><button id="cancel-membership-btn" class="btn btn-danger">HỦY GÓI PREMIUM</button><div id="profile-message" class="inline-message"></div></section></div>
+          <section class="panel transfer-panel"><div class="panel-heading"><div><div class="eyebrow">PEER TO PEER</div><h3>Chuyển USD / cho nợ</h3></div><span class="gift-badge">Chuyển thường: người nhận 85%</span></div><div class="form-grid"><label class="field-label">ID người nhận<input id="transfer-id" class="text-input" maxlength="8"></label><label class="field-label">Tên hiển thị<input id="transfer-name" class="text-input"></label><label class="field-label">Số tiền<input id="transfer-amount" class="text-input" inputmode="decimal"></label><label class="field-label">Loại giao dịch<select id="transfer-mode" class="text-input"><option value="transfer">Chuyển tiền (phí 15%)</option><option value="loan">Cho nợ (không thu phí)</option></select></label></div><button id="transfer-submit" class="btn btn-quiet">KIỂM TRA & XÁC NHẬN</button><div id="transfer-message" class="inline-message"></div></section>
+          <section class="panel inbox-panel"><div class="panel-heading"><div><div class="eyebrow">NOTIFICATIONS</div><h3>Hòm thư</h3></div><button id="inbox-mark-read" class="text-button">Đánh dấu đã đọc</button></div><div id="inbox-items" class="inbox-items"></div></section>
+        </section>
+
+        <section id="view-admin" class="view">
+          <div class="view-heading"><div><div class="eyebrow">CONTROL ROOM</div><h1>Quản trị <span>hệ thống</span></h1></div><span class="staff-badge">STAFF ACCESS</span></div>
+          <div class="admin-tabs"><button class="admin-tab active" data-admin-tab="accounts">Tài khoản</button><button class="admin-tab owner-only hidden" data-admin-tab="requests">Yêu cầu ADMIN</button><button class="admin-tab" data-admin-tab="reports">Tố cáo</button><button class="admin-tab owner-only hidden" data-admin-tab="limits">Hạn mức</button><button class="admin-tab owner-only hidden" data-admin-tab="audit">Nhật ký</button></div>
+          <div id="admin-accounts" class="admin-content active"><section class="panel table-panel"><div class="panel-heading"><div><div class="eyebrow">ACCOUNT DIRECTORY</div><h3>Danh sách tài khoản</h3></div><button id="admin-users-refresh" class="btn btn-quiet">↻ Tải lại</button></div><div id="admin-users-table" class="data-table"></div></section><section class="panel admin-actions"><div class="panel-heading"><div><div class="eyebrow">SELECTED ACCOUNT ACTIONS</div><h3>Thao tác quản trị</h3></div></div><div class="admin-action-grid"><label class="field-label">Tên đăng nhập mục tiêu<input id="admin-target" class="text-input"></label><label class="field-label">Lý do / ghi chú<input id="admin-reason" class="text-input"></label><label class="field-label">Số tiền phạt / phần trăm<input id="admin-penalty-amount" class="text-input"></label><label class="field-label">Điều chỉnh ví USD<input id="admin-cash-amount" class="text-input"></label></div><div class="action-buttons"><button id="admin-ban" class="btn btn-danger">BAN</button><button id="admin-unban" class="btn btn-quiet">GỠ BAN</button><button id="admin-penalty" class="btn btn-danger">PHẠT</button><button id="admin-cash-add" class="btn btn-quiet">+ CỘNG USD</button><button id="admin-cash-sub" class="btn btn-quiet">− TRỪ USD</button><button id="admin-promote" class="btn btn-quiet owner-only hidden">↑ THĂNG 1 CẤP</button><button id="admin-demote" class="btn btn-quiet owner-only hidden">↓ HẠ 1 CẤP</button><button id="admin-spadmin" class="btn btn-primary owner-only hidden">TRAO SPADMIN</button><button id="admin-revoke-tier" class="btn btn-danger owner-only hidden">THU HỒI RUBY / LỤC BẢO</button></div><div id="admin-action-message" class="inline-message"></div></section></div>
+          <div id="admin-requests" class="admin-content hidden"><section class="panel table-panel"><div class="panel-heading"><div><div class="eyebrow">PENDING REVIEW</div><h3>Yêu cầu cấp ADMIN</h3></div></div><div id="admin-requests-list" class="data-table"></div></section></div>
+          <div id="admin-reports" class="admin-content hidden"><section class="panel table-panel"><div class="panel-heading"><div><div class="eyebrow">MODERATION INBOX</div><h3>Hồ sơ tố cáo</h3></div></div><div id="admin-reports-list" class="data-table"></div></section></div>
+          <div id="admin-limits" class="admin-content hidden"><section class="panel settings-card"><div class="eyebrow">ROLE SEAT LIMITS</div><h3>Hạn mức vai trò quản trị</h3><div class="form-grid"><label class="field-label">SPADMIN<input id="limit-spadmin" class="text-input" type="number" min="1" max="1000" value="5"></label><label class="field-label">ADMIN<input id="limit-admin" class="text-input" type="number" min="1" max="1000" value="10"></label><label class="field-label">TỌA ĐỘ<input id="limit-coordinate" class="text-input" type="number" min="1" max="1000" value="20"></label></div><button id="limits-save" class="btn btn-primary">LƯU HẠN MỨC</button><button id="backup-download" class="btn btn-quiet">↓ TẢI BẢN SAO LƯU JSON</button><div id="limits-message" class="inline-message"></div></section></div>
+          <div id="admin-audit" class="admin-content hidden"><section class="panel table-panel"><div class="panel-heading"><div><div class="eyebrow">SECURITY TRAIL</div><h3>Nhật ký quản trị gần đây</h3></div></div><div id="audit-list" class="data-table"></div></section></div>
+          <section class="panel forecast-panel"><div class="panel-heading"><div><div class="eyebrow">MARKET INSIGHT</div><h3>Bảng phân tích MA</h3></div><button id="admin-forecast" class="btn btn-quiet">TẢI PHÂN TÍCH</button></div><div id="forecast-results" class="forecast-results">Chỉ báo dựa trên MA5/MA20; đây không phải dự báo chắc chắn.</div></section>
+        </section>
+      </main>
+      <footer class="app-footer"><span>© SÀN CHỨNG KHOÁN · WEB 2.0</span><span>DEMO ONLY · NO REAL-MONEY TRANSACTIONS</span></footer>
+    </div>
+  </div>
+  <div id="toast-area" class="toast-area" aria-live="polite"></div>
+  <script src="/static/app.js" defer></script>
+</body>
+</html>

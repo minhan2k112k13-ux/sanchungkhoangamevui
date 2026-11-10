@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: sanchungkhoan-web-v2-clean
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /healthz
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: OWNER_PASSWORD
+        sync: false
+      - key: OWNER_DISPLAY_NAME
+        value: OWNER
+      - key: OWNER_USERNAME
+        value: baominhadmin
+      - key: APP_ENV
+        value: production
